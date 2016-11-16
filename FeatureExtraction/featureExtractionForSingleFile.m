@@ -20,5 +20,5 @@ function MFCCs = featureExtractionForSingleFile(class, index)
     wav_file = strcat('./genres/', class, '/', class, '.000', sprintf('%02d', index), '.au');  % input audio filename
     [ speech, fs] = audioread( wav_file );
     [ MFCCs, ~, ~ ] = mfcc( speech, fs, Tw, Ts, alpha, @hamming, [LF HF], M, C+1, L );
-    dlmwrite(strcat('./feature/', class, '/', class, '.000', sprintf('%02d', index), '.txt'), transpose(MFCCs));
+    csvwrite(strcat('./feature/', class, '/', class, '.000', sprintf('%02d', index), '.csv'), transpose(MFCCs));
 end
