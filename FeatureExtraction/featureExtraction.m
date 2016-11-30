@@ -1,52 +1,30 @@
 %Extract MFCC features from .au files
 %Use https://www.mathworks.com/matlabcentral/fileexchange/32849-htk-mfcc-matlab
 
-mkdir('./feature/blues');
-for i = 0 : 99    
-    featureExtractionForSingleFile('blues', i);
+clear;
+
+label = 0;
+
+types = {'blues', 'classical', 'country', 'disco', 'hiphop', 'jazz', 'metal', 'pop', 'reggae', 'rock'};
+
+MFCCs = [];
+
+for type = types
+    fprintf('Extracting features from %s, label %d\n', char(type), label);
+    for i = 0 : 99    
+        mfcc = transpose(featureExtractionForSingleFile(char(type), i));
+        [row, col] = size(mfcc);
+        mfcc_label = zeros(row, col + 1);
+        for j = 1:row
+            mfcc_label(j, :) = [mfcc(j, :), label];
+        end
+        MFCCs = [MFCCs; mfcc_label];
+    end
+    label = label + 1;
 end
 
-mkdir('./feature/classical');
-for i = 0 : 99    
-    featureExtractionForSingleFile('classical', i);
-end
+shuffledArray = MFCCs(randperm(size(MFCCs,1)),:);
 
-mkdir('./feature/country');
-for i = 0 : 99    
-    featureExtractionForSingleFile('country', i);
-end
+csvwrite('data.csv', shuffledArray);
 
-mkdir('./feature/disco');
-for i = 0 : 99    
-    featureExtractionForSingleFile('disco', i);
-end
 
-mkdir('./feature/hiphop');
-for i = 0 : 99    
-    featureExtractionForSingleFile('hiphop', i);
-end
-
-mkdir('./feature/jazz');
-for i = 0 : 99    
-    featureExtractionForSingleFile('jazz', i);
-end
-
-mkdir('./feature/metal');
-for i = 0 : 99    
-    featureExtractionForSingleFile('metal', i);
-end
-
-mkdir('./feature/pop');
-for i = 0 : 99    
-    featureExtractionForSingleFile('pop', i);
-end
-
-mkdir('./feature/reggae');
-for i = 0 : 99    
-    featureExtractionForSingleFile('reggae', i);
-end
-
-mkdir('./feature/rock');
-for i = 0 : 99    
-    featureExtractionForSingleFile('rock', i);
-end
