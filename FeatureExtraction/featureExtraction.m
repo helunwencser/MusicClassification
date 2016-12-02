@@ -11,7 +11,7 @@ MFCCs = [];
 
 for type = types
     fprintf('Extracting features from %s, label %d\n', char(type), label);
-    for i = 0 : 89
+    for i = 0 : 79
         mfcc = transpose(featureExtractionForSingleFile(char(type), i));
         [row, col] = size(mfcc);
         mfcc_label = zeros(row, col + 1);
