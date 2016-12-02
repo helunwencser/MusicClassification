@@ -82,7 +82,7 @@ def main():
                     index = int(re.findall('\d+', file)[0])
                     if index >= 80:
                         type = classify(model, './data/{0}/{1}'.format(directory, file))
-                        print('Validating audio file: {0}/{1}, {3}'.format(directory, file, type))
+                        print('\tValidating audio file: {0}/{1}, {2}'.format(directory, file, type))
                         if type == directory:
                             correct_result += 1
                             print('Correct: {}'.format(correct_result))
