@@ -11,12 +11,14 @@ MFCCs = [];
 
 for type = types
     fprintf('Extracting features from %s, label %d\n', char(type), label);
-    for i = 0 : 99    
+    for i = 0 : 89
         mfcc = transpose(featureExtractionForSingleFile(char(type), i));
         [row, col] = size(mfcc);
         mfcc_label = zeros(row, col + 1);
         for j = 1:row
-            mfcc_label(j, :) = [mfcc(j, :), label];
+            if ~any(isnan(mfcc(j, :)))
+                mfcc_label(j, :) = [mfcc(j, :), label];
+            end
         end
         MFCCs = [MFCCs; mfcc_label];
     end
