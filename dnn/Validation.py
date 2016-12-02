@@ -75,12 +75,17 @@ def main():
     directories = os.listdir('./data')
     for directory in directories:
         if directory in types:
+            print('Validating type: {}'.format(directory))
             files = os.listdir('./data/{}'.format(directory))
             for file in files:
                 if file.endswith('.au'):
                     index = int(re.findall('\d+', file)[0])
-                    if index >= 80 and directory == classify(model, './data/{0}/{1}'.format(directory, file)):
-                        correct_result += 1
+                    if index >= 80:
+                        type = classify(model, './data/{0}/{1}'.format(directory, file))
+                        print('Validating audio file: {0}/{1}, {3}'.format(directory, file, type))
+                        if type == directory:
+                            correct_result += 1
+                            print('Correct: {}'.format(correct_result))
 
     print('{0} files out of {1} are correctly classified.'.format(correct_result, 200))
     print('The accuracy is {}.'.format(correct_result / float(200)))

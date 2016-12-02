@@ -54,6 +54,8 @@ def main():
     for idx, val in enumerate(pred):
         type = np.argmax(val);
         dict[type] = dict.get(type, 0) + 1;
+    print(dict)
+    print(type_to_class)
     print(type_to_class.get(max(dict.items(), key=operator.itemgetter(1))[0], 'no class found'));
 
 if __name__ == "__main__":
